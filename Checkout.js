@@ -36,7 +36,7 @@ class Checkout {
   isItem(item) {
     const itemKeys = Object.keys(this.items);
     if (itemKeys.indexOf(item) === -1) {
-      console.error(`Invert order item : ${item}`)
+      console.error(`Invalid order item : ${item}`)
       return false
     }
     return true
@@ -85,7 +85,7 @@ class Checkout {
         const customerHasDiscount = this.rules[this.currentPricingRules].discount
         const hasDiscount =  Object.values(carts).findIndex(value => value.sku === customerHasDiscount.sku);
         if (hasDiscount > -1) {
-          carts[hasDiscount].price = carts[hasDiscount].price -  customerHasDiscount.discount;
+          carts[hasDiscount].price = carts[hasDiscount].price - customerHasDiscount.discount;
         }
       }
 
