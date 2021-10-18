@@ -1,0 +1,24 @@
+{
+  "name": "pizza-tets",
+  "version": "1.0.0",
+  "description": "test-assignment",
+  "main": "Checkout.js",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^27.3.0"
+  },
+  "scripts": {
+     "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quochungphp/pizza-tets.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quochungphp/pizza-tets/issues"
+  },
+  "homepage": "https://github.com/quochungphp/pizza-tets#readme"
+}

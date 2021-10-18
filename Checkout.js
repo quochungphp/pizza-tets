@@ -10,6 +10,8 @@ class Checkout {
 
   rules = rules;
 
+  response = {} | undefined;
+
   constructor(pricingRules) {
     this.currentPricingRules = pricingRules;
   }
@@ -70,7 +72,7 @@ class Checkout {
       }
 
       // Process if customer has gift
-      if (this.rules[this.currentPricingRules]) {
+      if (this.rules[this.currentPricingRules] && this.rules[this.currentPricingRules].gift) {
         const customerHasGift = this.rules[this.currentPricingRules].gift;
         const hasGift =  Object.values(carts).findIndex(value => value.sku === customerHasGift.sku);
         if (hasGift > -1) {
@@ -79,7 +81,7 @@ class Checkout {
       }
 
       // Process if customer has discount
-      if (this.rules[this.currentPricingRules]) {
+      if (this.rules[this.currentPricingRules] && this.rules[this.currentPricingRules].discount) {
         const customerHasDiscount = this.rules[this.currentPricingRules].discount
         const hasDiscount =  Object.values(carts).findIndex(value => value.sku === customerHasDiscount.sku);
         if (hasDiscount > -1) {
@@ -87,43 +89,66 @@ class Checkout {
         }
       }
 
+      // Build output response
       this.buildResponse(carts)
+
+      return this;
     } catch (error) {
       console.error(`Some thing went wrong: ${error.message}`)
       return false;
     }
   }
 
+  getResponse () {
+    if(!this.response) {
+      console.error("Some thing went wrong")
+      return false;
+    }
+    return this.response;
+  }
+
   buildResponse (inputs) {
     const rule = this.rules[this.currentPricingRules]
-    const caseName =  rule ? rule.name : "default"
-    console.log(`Customer: ${caseName} \n`);
+    const customerName =  rule ? rule.name : "default"
+    console.log(`Customer: ${customerName} \n`);
     console.log(`Items: \n`);
-    let totalPrice = 0
+    let totalPrice = 0;
+    const items =  [];
     for (let [key, value] of Object.entries(inputs)) {
-      console.log(`${++key}. ${value.name} x${value.quantity}\n`);
+      const index = ++key;
+      const description = `${value.name} x${value.quantity}`;
+      console.log(`${index}. ${description} \n`);
       totalPrice += value.price;
+      items.push({index,  description})
     }
+
     console.log(`Output: Total $ ${totalPrice} \n`);
+    this.response = {
+      customerName,
+      items,
+      totalPrice
+    }
   }
 }
+module.exports = Checkout;
 
-//Customer: Default
-const co = new Checkout();
-co.add("item1");
-co.add("item2");
-co.add("item3");
-co.total();
+// Uncomment if you wan to test with function
+// Customer: Default
+// const co = new Checkout();
+// co.add("item1");
+// co.add("item2");
+// co.add("item3");
+// co.total();
 
 
-//Customer: Infosys
+// Customer: Infosys
 // const co = new Checkout(0);
 // co.add("item1");
 // co.add("item1");
 // co.add("item3");
 // co.total();
 
-//Customer: Amazon
+// Customer: Amazon
 // const co = new Checkout(1);
 // co.add("item2");
 // co.add("item2");
@@ -131,8 +156,9 @@ co.total();
 // co.add("item3");
 // co.total();
 
-//Customer: Face book
+// Customer: Face book
 // const co = new Checkout(2);
+// co.add("item2");
 // co.add("item2");
 // co.add("item2");
 // co.add("item2");
