@@ -1,4 +1,4 @@
-# pizza-tets
+# pizza-test
 test-assignment
 
 # Install

@@ -92,13 +92,6 @@ class Checkout {
     }
   }
 
-  getResponse () {
-    if(!this.response) {
-      throw new Error("Some thing went wrong")
-    }
-    return this.response;
-  }
-
   buildResponse (inputs) {
     const rule = this.rules[this.currentPricingRules]
     const customerName =  rule ? rule.name : "default"
