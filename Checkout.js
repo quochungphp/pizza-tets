@@ -18,8 +18,7 @@ class Checkout {
 
   isRule () {
     if(this.currentPricingRules && !this.rules[this.currentPricingRules]) {
-      console.error("Invalid customer");
-      return;
+      throw new Error("Invalid customer");
     }
     return true
   }
@@ -27,8 +26,7 @@ class Checkout {
   isCart() {
     const countItems = this.orderItems.length;
     if (countItems === 0) {
-      console.error("Please, enter a item");
-      return false;
+      throw new Error("Please, enter a item");
     }
     return true;
   }
@@ -36,15 +34,14 @@ class Checkout {
   isItem(item) {
     const itemKeys = Object.keys(this.items);
     if (itemKeys.indexOf(item) === -1) {
-      console.error(`Invalid order item : ${item}`)
-      return false
+      throw new Error(`Invalid order item : ${item}`)
     }
     return true
   }
 
   add(item) {
     if (!item) {
-      console.error("Please, enter a item");
+      throw new Error("Please, enter a item");
     }
     this.isItem(item)
     return this.orderItems.push(item)
@@ -94,15 +91,13 @@ class Checkout {
 
       return this;
     } catch (error) {
-      console.error(`Some thing went wrong: ${error.message}`)
-      return false;
+      throw new Error(`Some thing went wrong: ${error.message}`)
     }
   }
 
   getResponse () {
     if(!this.response) {
-      console.error("Some thing went wrong")
-      return false;
+      throw new Error("Some thing went wrong")
     }
     return this.response;
   }

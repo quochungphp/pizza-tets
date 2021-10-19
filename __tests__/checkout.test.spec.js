@@ -77,4 +77,23 @@ describe("Checkout", () => {
       totalPrice: 1681.95
     });
   });
+
+  test("it should throw error when wrong item input", () => {
+    try {
+      const co = new Checkout(2);
+      co.add();
+      co.total();
+    } catch (error) {
+      expect(error).toMatchObject(new Error("Please, enter a item"));
+    }
+  });
+  test("it should throw error when wrong rule input", () => {
+    try {
+      const co = new Checkout(123);
+      co.add("item1");
+      co.total();
+    } catch (error) {
+      expect(error).toMatchObject(new Error("Some thing went wrong: Invalid customer"));
+    }
+  });
 });
