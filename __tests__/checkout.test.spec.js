@@ -7,8 +7,8 @@ describe("Checkout", () => {
     co.add("item1");
     co.add("item2");
     co.add("item3");
-    const response = co.total().getResponse();
-    expect(response).toMatchObject(    {
+    const response = co.total();
+    expect(response).toMatchObject({
       customerName: 'default',
       items: [
         { index: 1, description: 'Small Pizza x1' },
@@ -24,7 +24,7 @@ describe("Checkout", () => {
     co.add("item1");
     co.add("item1");
     co.add("item3");
-    const response = co.total().getResponse();
+    const response = co.total();
     expect(response).toMatchObject({
       customerName: 'Infosys',
       items: [
@@ -41,14 +41,7 @@ describe("Checkout", () => {
     co.add("item2");
     co.add("item2");
     co.add("item3");
-    const response = co.total().getResponse({
-      customerName: 'Amazon',
-      items: [
-        { index: 1, description: 'Medium Pizza x3' },
-        { index: 2, description: 'Large Pizza x1' }
-      ],
-      totalPrice: 1268.96
-    });
+    const response = co.total();
 
     expect(response).toMatchObject({
       customerName: 'Amazon',
@@ -67,7 +60,7 @@ describe("Checkout", () => {
     co.add("item2");
     co.add("item2");
     co.add("item3");
-    const response = co.total().getResponse();
+    const response = co.total();
     expect(response).toMatchObject({
       customerName: 'Facebook',
       items: [

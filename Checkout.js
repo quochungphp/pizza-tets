@@ -10,8 +10,6 @@ class Checkout {
 
   rules = rules;
 
-  response = {} | undefined;
-
   constructor(pricingRules) {
     this.currentPricingRules = pricingRules;
   }
@@ -87,9 +85,8 @@ class Checkout {
       }
 
       // Build output response
-      this.buildResponse(carts)
+      return this.buildResponse(carts)
 
-      return this;
     } catch (error) {
       throw new Error(`Some thing went wrong: ${error.message}`)
     }
@@ -116,9 +113,8 @@ class Checkout {
       totalPrice += value.price;
       items.push({index,  description})
     }
-
     console.log(`Output: Total $ ${totalPrice} \n`);
-    this.response = {
+    return {
       customerName,
       items,
       totalPrice
@@ -127,35 +123,39 @@ class Checkout {
 }
 module.exports = Checkout;
 
-// Uncomment if you wan to test with function
 // Customer: Default
-// const co = new Checkout();
-// co.add("item1");
-// co.add("item2");
-// co.add("item3");
-// co.total();
+console.log("Case #1 \n")
+const co = new Checkout();
+co.add("item1");
+co.add("item2");
+co.add("item3");
+co.total();
+
 
 
 // Customer: Infosys
-// const co = new Checkout(0);
-// co.add("item1");
-// co.add("item1");
-// co.add("item3");
-// co.total();
+console.log("Case #2 \n")
+const coInfosys = new Checkout(0);
+coInfosys.add("item1");
+coInfosys.add("item1");
+coInfosys.add("item3");
+coInfosys.total();
 
 // Customer: Amazon
-// const co = new Checkout(1);
-// co.add("item2");
-// co.add("item2");
-// co.add("item2");
-// co.add("item3");
-// co.total();
+console.log("Case #3 \n")
+const coAmazon = new Checkout(1);
+coAmazon.add("item2");
+coAmazon.add("item2");
+coAmazon.add("item2");
+coAmazon.add("item3");
+coAmazon.total();
 
-// Customer: Face book
-// const co = new Checkout(2);
-// co.add("item2");
-// co.add("item2");
-// co.add("item2");
-// co.add("item2");
-// co.add("item3");
-// co.total();
+// Customer: Facebook
+console.log("Case #4 \n")
+const coFacebook = new Checkout(2);
+coFacebook.add("item2");
+coFacebook.add("item2");
+coFacebook.add("item2");
+coFacebook.add("item2");
+coFacebook.add("item3");
+coFacebook.total();

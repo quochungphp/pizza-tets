@@ -6,3 +6,6 @@ test-assignment
 
 # Test
 `$ npm test`
+
+# Run Checkout
+`$ node Checkout.js`
